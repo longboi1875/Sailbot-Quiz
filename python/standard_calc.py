@@ -11,7 +11,19 @@ def bound_to_180(angle):
     Returns:
         float: The bounded angle in degrees.
     """
-    return 0
+
+    # every angle can be translated by repeatedly adding/subtracting 360
+    # first thought was doing it with a while loop until we reached the desired range, 
+        # however that is very wasteful, we can do an equivalent thing with mod
+        # its still possible for the mod to return a result outside of the range however, so subtracting 360 is required
+
+    angle = angle % 360
+
+
+    if angle >= 180:
+        angle -= 360
+
+    return float(angle)
 
 
 def is_angle_between(first_angle, middle_angle, second_angle):
@@ -29,4 +41,9 @@ def is_angle_between(first_angle, middle_angle, second_angle):
     Returns:
         bool: True when `middle_angle` is not in the reflex angle of `first_angle` and `second_angle`, false otherwise.
     """
+
+    # 
+
+
     return True
+
