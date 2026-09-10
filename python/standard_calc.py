@@ -29,7 +29,7 @@ def bound_to_180(angle):
 def is_angle_between(first_angle, middle_angle, second_angle):
     """Determines whether an angle is between two other angles.
 
-    e.g.)
+    e.g.
         is_angle_between(0, 45, 90) = True
         is_angle_between(45, 90, 270) = False
 
@@ -42,8 +42,22 @@ def is_angle_between(first_angle, middle_angle, second_angle):
         bool: True when `middle_angle` is not in the reflex angle of `first_angle` and `second_angle`, false otherwise.
     """
 
-    # 
+    # first_angle and second_angle split the circle into two pieces essentially
+    # the reflex angle is the longer distance between them
+    # so, middle_angle is between them if its on the shorter path
 
+    #distance between angles (arc concept)
+    clockwise_d = (second_angle - first_angle) % 360
 
-    return True
+    # if the clockwise path is 180 degrees or less, it means clockwise is the shorter arc (not the reflex one)
+    if clockwise_d <= 180:
+        middle_d = (middle_angle - first_angle) % 360
+        return middle_d <= clockwise_d
+
+    # otherwise, the clockwise path is the reflex angle,
+    # so the shorter arc must be counterclockwise
+    else: 
+        ccw_d = (first_angle - second_angle) % 360
+        middle_d = (first_angle - middle_angle) % 360
+        return middle_d <= ccw_d
 
